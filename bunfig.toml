@@ -1,0 +1,8 @@
+smol = true
+
+[install]
+exact = true
+
+[run]
+bun = true
+silent = true

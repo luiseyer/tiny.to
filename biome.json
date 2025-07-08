@@ -1,0 +1,90 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+  "vcs": { "clientKind": "git", "enabled": true, "useIgnoreFile": true },
+  "files": { "ignoreUnknown": true },
+  "assist": {
+    "actions": {
+      "source": { "organizeImports": "on", "useSortedProperties": "on" }
+    }
+  },
+  "formatter": {
+    "expand": "never",
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "crlf",
+    "lineWidth": 80,
+    "useEditorconfig": true
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "always",
+      "jsxQuoteStyle": "single",
+      "quoteStyle": "single",
+      "semicolons": "asNeeded",
+      "trailingCommas": "es5"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "complexity": { "noVoid": "error" },
+      "correctness": {
+        "noUnusedImports": "warn",
+        "noUnusedPrivateClassMembers": "error",
+        "noUnusedVariables": "error"
+      },
+      "nursery": { "useSortedClasses": "warn" },
+      "recommended": true,
+      "style": {
+        "noInferrableTypes": "off",
+        "noNamespace": "error",
+        "noNonNullAssertion": "error",
+        "noParameterAssign": "error",
+        "noUnusedTemplateLiteral": "error",
+        "noUselessElse": "error",
+        "noYodaExpression": "error",
+        "useAsConstAssertion": "error",
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": { "syntax": "shorthand" }
+        },
+        "useConsistentBuiltinInstantiation": "error",
+        "useDefaultParameterLast": "error",
+        "useExponentiationOperator": "error",
+        "useExportType": "error",
+        "useForOf": "error",
+        "useNodejsImportProtocol": "error",
+        "useNumberNamespace": "error",
+        "useSelfClosingElements": "error",
+        "useShorthandFunctionType": "error",
+        "useSingleVarDeclarator": "error",
+        "useTemplate": "error",
+        "useThrowOnlyError": "error"
+      },
+      "suspicious": {
+        "noEmptyBlockStatements": "error",
+        "noExportsInTest": "off",
+        "useAwait": "error"
+      }
+    }
+  },
+  "json": {
+    "formatter": { "expand": "auto", "trailingCommas": "all" },
+    "parser": { "allowComments": true, "allowTrailingCommas": true }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.svelte"],
+      "formatter": { "enabled": false },
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "off",
+            "noUnusedVariables": "off"
+          },
+          "style": { "useConst": "off", "useImportType": "off" }
+        }
+      }
+    }
+  ]
+}
