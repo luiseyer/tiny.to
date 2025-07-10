@@ -1,23 +1,23 @@
 <script lang="ts">
   import { cn, type WithElementRef } from '$lib/utils.js'
-  import type { HTMLAttributes } from 'svelte/elements'
+  import type { HTMLTdAttributes } from 'svelte/elements'
 
   let {
     ref = $bindable(null),
     class: className,
     children,
     ...restProps
-  }: WithElementRef<HTMLAttributes<HTMLDivElement>> = $props()
+  }: WithElementRef<HTMLTdAttributes> = $props()
 </script>
 
-<div
+<td
   bind:this={ref}
-  data-slot="card"
+  data-slot="table-cell"
   class={cn(
-    'flex flex-col gap-6 rounded-xl border bg-card py-6 text-card-foreground shadow-sm',
+    'bg-clip-padding p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0',
     className
   )}
   {...restProps}
 >
   {@render children?.()}
-</div>
+</td>

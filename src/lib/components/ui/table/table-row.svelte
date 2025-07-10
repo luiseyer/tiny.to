@@ -7,14 +7,17 @@
     class: className,
     children,
     ...restProps
-  }: WithElementRef<HTMLAttributes<HTMLDivElement>> = $props()
+  }: WithElementRef<HTMLAttributes<HTMLTableRowElement>> = $props()
 </script>
 
-<div
+<tr
   bind:this={ref}
-  data-slot="card-action"
-  class={cn('col-start-2 row-span-2 row-start-1 self-start justify-self-end', className)}
+  data-slot="table-row"
+  class={cn(
+    'border-b transition-colors data-[state=selected]:bg-muted hover:[&,&>svelte-css-wrapper]:[&>th,td]:bg-muted/50',
+    className
+  )}
   {...restProps}
 >
   {@render children?.()}
-</div>
+</tr>
