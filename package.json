@@ -15,29 +15,33 @@
     "pocketbase": "./pocketbase/pocketbase serve"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "5.2.6",
+    "@fontsource-variable/jetbrains-mono": "5.2.6",
     "mode-watcher": "1.1.0",
     "pocketbase": "0.26.1",
-    "zod": "3.25.76"
+    "zod": "4.0.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.6",
+    "@biomejs/biome": "2.1.1",
+    "@internationalized/date": "3.8.2",
     "@lucide/svelte": "0.525.0",
     "@sveltejs/adapter-auto": "6.0.1",
-    "@sveltejs/kit": "2.22.2",
-    "@sveltejs/vite-plugin-svelte": "5.1.0",
+    "@sveltejs/kit": "2.22.5",
+    "@sveltejs/vite-plugin-svelte": "6.0.0",
     "@tailwindcss/vite": "4.1.11",
+    "bits-ui": "2.8.10",
     "bun-types": "1.2.18",
     "clsx": "2.1.1",
     "prettier": "3.6.2",
     "prettier-plugin-svelte": "3.4.0",
-    "prettier-plugin-tailwindcss": "0.6.13",
-    "svelte": "5.35.2",
+    "prettier-plugin-tailwindcss": "0.6.14",
+    "svelte": "5.35.5",
     "svelte-check": "4.2.2",
     "tailwind-merge": "3.3.1",
     "tailwind-variants": "1.0.0",
     "tailwindcss": "4.1.11",
     "tw-animate-css": "1.3.5",
     "typescript": "5.8.3",
-    "vite": "7.0.2"
+    "vite": "7.0.4"
   }
 }
