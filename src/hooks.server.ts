@@ -1,4 +1,5 @@
-import { PocketBase } from '$lib/db'
+import { building } from '$app/environment'
+import { PocketBase } from '$lib/shared/pocketbase'
 
 export async function handle({ event, resolve }) {
   event.locals.pb = new PocketBase()
@@ -18,7 +19,10 @@ export async function handle({ event, resolve }) {
 
   response.headers.append(
     'set-cookie',
-    event.locals.pb.authStore.exportToCookie()
+    event.locals.pb.authStore.exportToCookie({
+      httpOnly: false,
+      secure: building,
+    })
   )
 
   return response
