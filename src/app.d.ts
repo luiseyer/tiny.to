@@ -1,4 +1,4 @@
-import type { PocketBase } from '$lib/db'
+import type { PocketBase } from '$lib/shared/pocketbase'
 
 declare global {
   // biome-ignore lint/style/noNamespace: Sveltekit Types
