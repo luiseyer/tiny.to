@@ -1,0 +1,1 @@
+export const DEFAULT_EXPIRATION_DAYS = 7
