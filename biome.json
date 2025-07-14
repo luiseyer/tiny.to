@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "vcs": { "clientKind": "git", "enabled": true, "useIgnoreFile": true },
   "files": { "ignoreUnknown": true },
   "assist": {
@@ -21,7 +21,7 @@
       "jsxQuoteStyle": "single",
       "quoteStyle": "single",
       "semicolons": "asNeeded",
-      "trailingCommas": "es5"
+      "trailingCommas": "none"
     }
   },
   "linter": {
@@ -69,7 +69,7 @@
     }
   },
   "json": {
-    "formatter": { "expand": "auto", "trailingCommas": "all" },
+    "formatter": { "expand": "auto", "trailingCommas": "none" },
     "parser": { "allowComments": true, "allowTrailingCommas": true }
   },
   "overrides": [
