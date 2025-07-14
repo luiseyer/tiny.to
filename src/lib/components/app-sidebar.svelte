@@ -11,32 +11,34 @@
     SidebarMenuButton,
     SidebarMenuItem,
   } from '$lib/components/ui/sidebar'
+  import { Routes } from '$lib/consts'
   import { cn } from '$lib/utils'
   import ChartNoAxesColumnIncreasingIcon from '@lucide/svelte/icons/chart-no-axes-column-increasing'
   import LayoutDashboardIcon from '@lucide/svelte/icons/layout-dashboard'
   import LinkIcon from '@lucide/svelte/icons/link'
   import SettingsIcon from '@lucide/svelte/icons/settings'
+  import NavUser from './nav-user.svelte'
 
   const items = [
     {
       title: 'Dashboard',
-      url: '/dashboard',
+      url: Routes.Dashboard,
       icon: LayoutDashboardIcon,
     },
     {
       title: 'Enlaces',
-      url: '/links',
+      url: Routes.Links,
       icon: LinkIcon,
     },
     {
       title: 'Analíticas',
-      url: '/analytics',
+      url: Routes.Analytics,
       icon: ChartNoAxesColumnIncreasingIcon,
     },
 
     {
       title: 'Configuración',
-      url: '/settings',
+      url: Routes.Settings,
       icon: SettingsIcon,
     },
   ]
@@ -50,7 +52,7 @@
           {#snippet child({ props })}
             <a href="/" {...props}>
               <LinkIcon class="h-5 w-5" />
-              <span class="text-base font-semibold">tiny.to</span>
+              <span class="text-base font-semibold">Tiny.to</span>
             </a>
           {/snippet}
         </SidebarMenuButton>
@@ -82,5 +84,7 @@
       </SidebarGroupContent>
     </SidebarGroup>
   </SidebarContent>
-  <SidebarFooter />
+  <SidebarFooter>
+    <NavUser />
+  </SidebarFooter>
 </Sidebar>
