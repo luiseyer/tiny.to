@@ -1,4 +1,5 @@
 import type { PocketBase } from '$lib/shared/pocketbase'
+import type { User } from '$lib/types'
 
 declare global {
   // biome-ignore lint/style/noNamespace: Sveltekit Types
@@ -6,8 +7,11 @@ declare global {
     // interface Error {}
     interface Locals {
       pb: PocketBase
+      user: User | undefined
     }
-    // interface PageData {}
+    interface PageData {
+      title: string
+    }
     // interface PageState {}
     // interface Platform {}
   }
