@@ -1,4 +1,4 @@
-import { useSidebar } from './context.svelte.js'
+import { useSidebar } from './context.svelte'
 import Root from './sidebar.svelte'
 import Content from './sidebar-content.svelte'
 import Footer from './sidebar-footer.svelte'
@@ -71,5 +71,5 @@ export {
   Separator as SidebarSeparator,
   Trigger as SidebarTrigger,
   Trigger,
-  useSidebar,
+  useSidebar
 }
