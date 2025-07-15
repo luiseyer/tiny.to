@@ -32,18 +32,20 @@ export const authentication: Handle = async ({ event, resolve }) => {
   return response
 }
 
-const UNPROTECTED_PATHS = [Routes.Login, Routes.Register, Routes.Logout]
+const UNPROTECTED_ROUTES = [Routes.Login, Routes.Register, Routes.Logout]
 
 export const authtorization: Handle = async ({ event, resolve }) => {
   const { pathname } = event.url
+  const { slug } = event.params
 
-  const isProtectedPath =
-    !UNPROTECTED_PATHS.some((path) => pathname.startsWith(path)) &&
-    pathname !== Routes.Home
+  const requiredAuth =
+    slug === undefined &&
+    pathname !== Routes.Home &&
+    !UNPROTECTED_ROUTES.some((path) => pathname.startsWith(path))
 
   const isAuthenticated = event.locals.pb.authStore.isValid
 
-  if (isProtectedPath && !isAuthenticated) {
+  if (requiredAuth && !isAuthenticated) {
     return redirect(302, Routes.Login)
   }
 
