@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getAuthState } from '$lib/auth'
+  import { setClicksState } from '$lib/clicks/state.svelte'
   import AppSidebar from '$lib/components/app-sidebar.svelte'
   import SiteHeader from '$lib/components/site-header.svelte'
   import { SidebarInset, SidebarProvider } from '$lib/components/ui/sidebar'
@@ -11,10 +12,17 @@
   const auth = getAuthState()
 
   const links = setLinksState(data.links)
+  const clicks = setClicksState(data.clicks)
 
   $effect(() => {
     if (auth.user) {
-      links.subscribe(auth.user.id)
+      links.subscribe()
+    }
+  })
+
+  $effect(() => {
+    if (auth.user) {
+      clicks.subscribe(links.links)
     }
   })
 </script>
