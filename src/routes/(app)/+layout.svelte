@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { getAuthState } from '$lib/auth'
   import AppSidebar from '$lib/components/app-sidebar.svelte'
   import SiteHeader from '$lib/components/site-header.svelte'
   import { SidebarInset, SidebarProvider } from '$lib/components/ui/sidebar'
@@ -7,7 +8,15 @@
 
   let { children, data }: LayoutProps = $props()
 
-  setLinksState(data.links)
+  const auth = getAuthState()
+
+  const links = setLinksState(data.links)
+
+  $effect(() => {
+    if (auth.user) {
+      links.subscribe(auth.user.id)
+    }
+  })
 </script>
 
 <SidebarProvider>
