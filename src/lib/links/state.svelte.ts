@@ -5,17 +5,14 @@ import { SvelteMap } from 'svelte/reactivity'
 import { toast } from 'svelte-sonner'
 
 export class LinksState {
-  private links = new SvelteMap<string, Link>()
+  links = new SvelteMap<string, Link>()
 
   constructor(links: Link[] = []) {
     this.links = new SvelteMap(links.map((link) => [link.id, link]))
   }
 
-  subscribe(userId: string) {
+  subscribe() {
     return pb.links.subscribe('*', ({ action, record }) => {
-      if (record.user !== userId) {
-        return
-      }
       if (action === 'create' || action === 'update') {
         this.links.set(record.id, record)
       }
