@@ -1,24 +1,27 @@
 import { pb } from '$lib/pocketbase'
 import type { Link, LinkCreate, LinkUpdate } from '$lib/types'
-import { getContext, onMount, setContext } from 'svelte'
+import { getContext, setContext } from 'svelte'
 import { SvelteMap } from 'svelte/reactivity'
 import { toast } from 'svelte-sonner'
 
-class LinksState {
+export class LinksState {
   private links = new SvelteMap<string, Link>()
 
   constructor(links: Link[] = []) {
     this.links = new SvelteMap(links.map((link) => [link.id, link]))
+  }
 
-    onMount(() => {
-      pb.links.subscribe('*', ({ action, record }) => {
-        if (action === 'create' || action === 'update') {
-          this.links.set(record.id, record)
-        }
-        if (action === 'delete') {
-          this.links.delete(record.id)
-        }
-      })
+  subscribe(userId: string) {
+    return pb.links.subscribe('*', ({ action, record }) => {
+      if (record.user !== userId) {
+        return
+      }
+      if (action === 'create' || action === 'update') {
+        this.links.set(record.id, record)
+      }
+      if (action === 'delete') {
+        this.links.delete(record.id)
+      }
     })
   }
 
