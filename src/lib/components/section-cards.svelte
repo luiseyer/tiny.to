@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '$lib/components/ui/card'
-  import { Skeleton } from '$lib/components/ui/skeleton'
-  import { cn } from '$lib/utils'
+  import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '$lib/shadcn/ui/card'
+  import { Skeleton } from '$lib/shadcn/ui/skeleton'
+  import { cn } from '$lib/shadcn/utils'
   import type { IconProps } from '@lucide/svelte'
   import HistoryIcon from '@lucide/svelte/icons/history'
   import MonitorSmartphoneIcon from '@lucide/svelte/icons/monitor-smartphone'
@@ -29,12 +29,10 @@
   const totalLinks = new Tween(0, { duration: 1000 })
 
   onMount(() => {
-    setTimeout(() => {
-      totalClicks.target = 2435
-      uniqueClicks.target = 1234
-      todayClicks.target = 143
-      totalLinks.target = 531
-    }, 2000)
+    totalClicks.target = 2435
+    uniqueClicks.target = 1234
+    todayClicks.target = 143
+    totalLinks.target = 531
   })
 </script>
 

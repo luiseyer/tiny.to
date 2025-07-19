@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Button } from '$lib/components/ui/button'
-  import { Select, SelectContent, SelectItem, SelectTrigger } from '$lib/components/ui/select'
+  import { Button } from '$lib/shadcn/ui/button'
+  import { Select, SelectContent, SelectItem, SelectTrigger } from '$lib/shadcn/ui/select'
   import type { Link } from '$lib/types'
   import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left'
   import ChevronRightIcon from '@lucide/svelte/icons/chevron-right'

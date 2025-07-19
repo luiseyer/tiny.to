@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FlexRender } from '$lib/components/ui/data-table'
+  import { FlexRender } from '$lib/shadcn/ui/data-table'
   import {
     Table,
     TableBody,
@@ -7,24 +7,25 @@
     TableHead,
     TableHeader,
     TableRow,
-  } from '$lib/components/ui/table'
-  import { getLinksState } from '$lib/links/state.svelte'
+  } from '$lib/shadcn/ui/table'
+  import { cn } from '$lib/shadcn/utils'
   import type { Link } from '$lib/types'
-  import { cn } from '$lib/utils'
   import type { ColumnDef, Table as TableType } from '@tanstack/table-core'
   import { flip } from 'svelte/animate'
-  import { scale } from 'svelte/transition'
 
-  let { table, columns }: { table: TableType<Link>; columns: ColumnDef<Link>[] } = $props()
+  type Props = {
+    table: TableType<Link>
+    columns: ColumnDef<Link>[]
+  }
 
-  const links = getLinksState()
+  let { table, columns }: Props = $props()
 
   const className = cn(
     'data-[name=select]:w-10',
-    'data-[name=slug]:w-48 data-[name=slug]:max-w-48',
-    'data-[name=url]:w-64 data-[name=url]:max-w-96',
+    'data-[name=slug]:max-w-64',
+    'data-[name=url]:max-w-96',
     'data-[name=expiresAt]:w-32',
-    'data-[name=actions]:w-10',
+    'data-[name=actions]:w-16',
     '[&:has([role=checkbox])]:pl-4',
     'overflow-hidden p-4 text-ellipsis'
   )
@@ -53,7 +54,6 @@
       {#each table.getRowModel().rows as row (row.id)}
         <tr
           animate:flip={{ duration: 250 }}
-          transition:scale={{ duration: 250 }}
           data-slot="table-row"
           data-state={row.getIsSelected() && 'selected'}
           class="border-b transition-colors data-[state=selected]:bg-muted hover:[&,&>svelte-css-wrapper]:[&>th,td]:bg-muted/50"

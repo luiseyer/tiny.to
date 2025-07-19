@@ -1,16 +1,16 @@
-import Actions from './actions.svelte'
-
 import Root from './data-table.svelte'
+import Pagination from './pagination.svelte'
 import Content from './table-content.svelte'
-
-export default Root
+import Toolbar from './toolbar.svelte'
 
 export {
   Root,
   Content,
-  Actions,
+  Toolbar,
+  Pagination,
   //
   Root as DataTable,
   Content as DataTableContent,
-  Actions as DataTableActions
+  Toolbar as DataTableToolbar,
+  Pagination as DataTablePagination
 }

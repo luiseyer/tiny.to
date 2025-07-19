@@ -25,3 +25,5 @@ vite.config.ts.timestamp-*
 # PocketBase
 /pocketbase/*
 !pb_hooks
+
+*.local

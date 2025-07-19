@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state'
+  import { Routes } from '$lib/consts'
   import {
     Sidebar,
     SidebarContent,
@@ -10,9 +11,8 @@
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-  } from '$lib/components/ui/sidebar'
-  import { Routes } from '$lib/consts'
-  import { cn } from '$lib/utils'
+  } from '$lib/shadcn/ui/sidebar'
+  import { cn } from '$lib/shadcn/utils'
   import ChartNoAxesColumnIncreasingIcon from '@lucide/svelte/icons/chart-no-axes-column-increasing'
   import LayoutDashboardIcon from '@lucide/svelte/icons/layout-dashboard'
   import LinkIcon from '@lucide/svelte/icons/link'

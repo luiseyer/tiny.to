@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '$app/state'
   import ToggleTheme from '$lib/components/toggle-theme.svelte'
-  import { Separator, SidebarTrigger } from '$lib/components/ui/sidebar'
+  import { Separator, SidebarTrigger } from '$lib/shadcn/ui/sidebar'
 </script>
 
 <header

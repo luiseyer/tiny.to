@@ -1,8 +1,6 @@
 <script lang="ts">
-  import { goto } from '$app/navigation'
-  import { Card, CardDescription, CardHeader, CardTitle } from '$lib/components/ui/card'
+  import { Card, CardDescription, CardHeader, CardTitle } from '$lib/shadcn/ui/card'
   import { onMount } from 'svelte'
-  import { slide } from 'svelte/transition'
   import type { PageProps } from './$types'
 
   let { data }: PageProps = $props()
@@ -10,7 +8,7 @@
   const { link } = data
 
   let title = $state('Enlace encontrado!')
-  let seconds = $state(10)
+  let seconds = $state(5)
 
   onMount(() => {
     const insterval = setInterval(() => {

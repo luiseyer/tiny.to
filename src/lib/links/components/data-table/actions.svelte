@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { Button } from '$lib/components/ui/button'
+  import { getLinksState } from '$lib/links'
+  import { _LINK_DELETED_ } from '$lib/messages'
+  import { Button } from '$lib/shadcn/ui/button'
   import {
     DropdownMenu,
     DropdownMenuContent,
@@ -8,27 +10,45 @@
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-  } from '$lib/components/ui/dropdown-menu'
-  import { getModalState } from '$lib/links/components/modal'
-  import { getLinksState } from '$lib/links/state.svelte'
+  } from '$lib/shadcn/ui/dropdown-menu'
   import type { Link } from '$lib/types'
   import EllipsisIcon from '@lucide/svelte/icons/ellipsis'
   import SquarePenIcon from '@lucide/svelte/icons/square-pen'
   import Trash2Icon from '@lucide/svelte/icons/trash-2'
   import type { Row } from '@tanstack/table-core'
+  import { toast } from 'svelte-sonner'
 
-  let { row }: { row: Row<Link> } = $props()
-
-  const links = getLinksState()
-  const modal = getModalState()
-
-  async function remove() {
-    await links.delete(row.original.id)
+  type Props = {
+    row: Row<Link>
+    onUpdate?: ((id: string) => void) | undefined
   }
 
-  function edit() {
-    modal.link = row.original.id
-    modal.open = true
+  let { row, onUpdate }: Props = $props()
+
+  const links = getLinksState()
+
+  function onDelete() {
+    const { timeout, undo, onSuccess, onError } = links.delete(row.original.id)
+
+    const undoToast = toast.info('Enlace eliminado', {
+      description: 'Se eliminará permanentemente.',
+      duration: timeout,
+      dismissable: true,
+      action: { label: 'Deshacer', onClick: undo },
+    })
+
+    onError((error) => {
+      toast.dismiss(undoToast)
+      toast.error(error.message)
+    })
+
+    onSuccess(() => {
+      toast.success(_LINK_DELETED_)
+    })
+  }
+
+  function onEdit() {
+    onUpdate?.(row.original.id)
   }
 </script>
 
@@ -44,8 +64,8 @@
   <DropdownMenuContent>
     <DropdownMenuGroup>
       <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-      <DropdownMenuItem onclick={edit}><SquarePenIcon /> Editar</DropdownMenuItem>
-      <DropdownMenuItem onclick={remove}><Trash2Icon /> Eliminar</DropdownMenuItem>
+      <DropdownMenuItem onclick={onEdit}><SquarePenIcon /> Editar</DropdownMenuItem>
+      <DropdownMenuItem onclick={onDelete}><Trash2Icon /> Eliminar</DropdownMenuItem>
     </DropdownMenuGroup>
     <DropdownMenuSeparator />
     <DropdownMenuItem>Ver analíticas</DropdownMenuItem>

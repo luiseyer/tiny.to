@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, type ButtonProps } from '$lib/components/ui/button'
+  import { Button, type ButtonProps } from '$lib/shadcn/ui/button'
   import MoonIcon from '@lucide/svelte/icons/moon'
   import SunIcon from '@lucide/svelte/icons/sun'
   import { toggleMode } from 'mode-watcher'

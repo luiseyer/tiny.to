@@ -1,4 +1,4 @@
-import type { PocketBase } from '$lib/shared/pocketbase'
+import type { PocketBase } from '$lib/pocketbase'
 import type { User } from '$lib/types'
 
 declare global {

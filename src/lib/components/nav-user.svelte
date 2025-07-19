@@ -1,26 +1,33 @@
 <script lang="ts">
   import { PUBLIC_POCKETBASE_URL } from '$env/static/public'
   import { getAuthState } from '$lib/auth'
-  import * as Avatar from '$lib/components/ui/avatar'
-  import * as DropdownMenu from '$lib/components/ui/dropdown-menu'
-  import * as Sidebar from '$lib/components/ui/sidebar'
+  import * as Avatar from '$lib/shadcn/ui/avatar'
+  import * as DropdownMenu from '$lib/shadcn/ui/dropdown-menu'
+  import * as Sidebar from '$lib/shadcn/ui/sidebar'
   import BellIcon from '@lucide/svelte/icons/bell'
   import CreditCardIcon from '@lucide/svelte/icons/credit-card'
   import EllipsisVerticalIcon from '@lucide/svelte/icons/ellipsis-vertical'
   import LogoutIcon from '@lucide/svelte/icons/log-out'
   import UserIcon from '@lucide/svelte/icons/user'
   import UserCircleIcon from '@lucide/svelte/icons/user-circle'
+  import { toast } from 'svelte-sonner'
 
   const auth = getAuthState()
   const sidebar = Sidebar.useSidebar()
 
   const avatar = $derived.by(() => {
     const { id, avatar } = auth.user || {}
-
     if (!id || !avatar) return undefined
-
     return `${PUBLIC_POCKETBASE_URL}/api/files/users/${id}/${avatar}`
   })
+
+  async function logout() {
+    const [error] = await auth.logout()
+
+    if (error) {
+      toast.error(error.message)
+    }
+  }
 </script>
 
 {#if auth.user}
@@ -75,7 +82,7 @@
             <DropdownMenu.Item><BellIcon /> Notificaciones</DropdownMenu.Item>
           </DropdownMenu.Group>
           <DropdownMenu.Separator />
-          <DropdownMenu.Item onclick={auth.logout}>
+          <DropdownMenu.Item onclick={logout}>
             <LogoutIcon /> Cerrar sesión
           </DropdownMenu.Item>
         </DropdownMenu.Content>

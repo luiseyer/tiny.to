@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { Button } from '$lib/components/ui/button'
-  import * as Form from '$lib/components/ui/form'
-  import { Input } from '$lib/components/ui/input'
   import { Routes } from '$lib/consts'
   import { register } from '$lib/schemas'
+  import { Button } from '$lib/shadcn/ui/button'
+  import * as Form from '$lib/shadcn/ui/form'
+  import { Input } from '$lib/shadcn/ui/input'
   import { EyeIcon, EyeOffIcon } from '@lucide/svelte'
   import { toast } from 'svelte-sonner'
   import { superForm } from 'sveltekit-superforms'

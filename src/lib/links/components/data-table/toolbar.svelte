@@ -1,58 +1,53 @@
 <script lang="ts">
-  import { Button } from '$lib/components/ui/button'
-  import { Input } from '$lib/components/ui/input'
-  import { getModalState } from '$lib/links/components/modal'
+  import { page } from '$app/state'
+  import { Button } from '$lib/shadcn/ui/button'
+  import { Input } from '$lib/shadcn/ui/input'
   import type { Link } from '$lib/types'
   import PlusIcon from '@lucide/svelte/icons/circle-plus'
   import XIcon from '@lucide/svelte/icons/x'
   import type { Table } from '@tanstack/table-core'
 
-  let { table }: { table: Table<Link> } = $props()
+  type Props = {
+    table: Table<Link>
+    onCreate?: (() => void) | undefined
+  }
 
-  const isFiltered = $derived(table.getState().columnFilters.length > 0)
+  let { table, onCreate }: Props = $props()
 
   let value = $state('')
 
-  const modal = getModalState()
+  const isFiltered = $derived(table.getState().columnFilters.length > 0)
+
+  function onFilter(e: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+    table.getColumn('slug')?.setFilterValue(e.currentTarget.value)
+    table.getColumn('url')?.setFilterValue(e.currentTarget.value)
+  }
+
+  function onReset() {
+    table.resetColumnFilters()
+    value = ''
+  }
 </script>
 
 <div class="flex items-center justify-between">
   <div class="flex flex-1 items-center space-x-2">
     <Input
+      id="search-links-by-slug-or-url"
       placeholder="Buscar enlaces..."
       bind:value
-      oninput={(e) => {
-        table.getColumn('slug')?.setFilterValue(e.currentTarget.value)
-        table.getColumn('url')?.setFilterValue(e.currentTarget.value)
-      }}
-      onchange={(e) => {
-        table.getColumn('slug')?.setFilterValue(e.currentTarget.value)
-        table.getColumn('url')?.setFilterValue(e.currentTarget.value)
-      }}
+      oninput={onFilter}
+      onchange={onFilter}
       class="w-64 border-accent shadow-sm"
     />
 
     {#if isFiltered}
-      <Button
-        variant="ghost"
-        onclick={() => {
-          table.resetColumnFilters()
-          value = ''
-        }}
-      >
-        <XIcon />
-        Limpiar
+      <Button variant="ghost" onclick={onReset}>
+        <XIcon /> Limpiar
       </Button>
     {/if}
   </div>
 
-  <Button
-    onclick={() => {
-      modal.link = undefined
-      modal.open = true
-    }}
-  >
-    <PlusIcon />
-    Crear enlace
+  <Button onclick={onCreate}>
+    <PlusIcon /> Crear enlace
   </Button>
 </div>

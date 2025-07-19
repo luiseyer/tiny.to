@@ -1,13 +1,7 @@
 <script lang="ts">
-  import { Button } from '$lib/components/ui/button'
-  import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-  } from '$lib/components/ui/card'
-  import { Input } from '$lib/components/ui/input'
+  import { Button } from '$lib/shadcn/ui/button'
+  import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '$lib/shadcn/ui/card'
+  import { Input } from '$lib/shadcn/ui/input'
   import SettingsIcon from '@lucide/svelte/icons/settings'
   import { slide } from 'svelte/transition'
 
@@ -37,6 +31,7 @@
       {/if}
 
       <Button class="w-full">Acortar URL</Button>
+      <a href="/links" class="text-center text-sm">Ver todos los enlaces</a>
     </CardContent>
   </Card>
 </div>

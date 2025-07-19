@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { Checkbox } from '$lib/components/ui/checkbox'
-  import { createSvelteTable, renderComponent, renderSnippet } from '$lib/components/ui/data-table'
-  import { getLinksState } from '$lib/links/state.svelte'
+  import { Button } from '$lib/shadcn/ui/button'
+  import { Checkbox } from '$lib/shadcn/ui/checkbox'
+  import { createSvelteTable, renderComponent, renderSnippet } from '$lib/shadcn/ui/data-table'
   import type { Link } from '$lib/types'
   import {
     type ColumnDef,
@@ -18,13 +18,17 @@
     type SortingState,
     type Table as TableType,
   } from '@tanstack/table-core'
+  import type { Snippet } from 'svelte'
   import Actions from './actions.svelte'
   import ColumnHeader from './column-header.svelte'
-  import Pagination from './pagination.svelte'
-  import TableContent from './table-content.svelte'
-  import Toolbar from './toolbar.svelte'
 
-  const links = getLinksState()
+  type Props = {
+    data: Link[]
+    children?: Snippet<[{ table: TableType<Link>; columns: ColumnDef<Link>[] }]>
+    onUpdate?: ((id: string) => void) | undefined
+  }
+
+  let { data, children, onUpdate }: Props = $props()
 
   let rowSelection = $state<RowSelectionState>({})
   let sorting = $state<SortingState>([])
@@ -66,7 +70,7 @@
     })
   }
 
-  const columns: ColumnDef<Link>[] = [
+  export const columns: ColumnDef<Link>[] = [
     {
       id: 'select',
       header: ({ table }) => renderCheckbox({ table }),
@@ -83,9 +87,8 @@
     },
     {
       accessorKey: 'url',
-      header: ({ column }) => renderComponent(ColumnHeader, { title: 'Enlace Original', column }),
-      cell: ({ cell }) =>
-        renderSnippet(Anchor, { href: String(cell.getValue()), title: String(cell.getValue()) }),
+      header: ({ column }) => renderComponent(ColumnHeader, { title: 'Enlace de Destino', column }),
+      cell: ({ row }) => renderSnippet(Anchor, { href: row.original.url, title: row.original.url }),
       filterFn: (row, _, value) => filterFn(row, value),
     },
     {
@@ -101,13 +104,13 @@
     },
     {
       id: 'actions',
-      cell: ({ row }) => renderComponent(Actions, { row }),
+      cell: ({ row }) => renderComponent(Actions, { row, onUpdate }),
     },
   ]
 
-  const table = createSvelteTable({
+  export const table = createSvelteTable({
     get data() {
-      return links.list
+      return data
     },
 
     state: {
@@ -164,9 +167,7 @@
 </script>
 
 {#snippet Anchor({ href, title }: { href: string; title: string })}
-  <a {href} target="_blank" class="underline">{title}</a>
+  <a {href} {title} target="_blank" class="hover:underline">{title}</a>
 {/snippet}
 
-<Toolbar {table} />
-<TableContent {table} {columns} />
-<Pagination {table} />
+{@render children?.({ table, columns })}
