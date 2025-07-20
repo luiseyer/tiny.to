@@ -1,13 +1,10 @@
 <script lang="ts">
-  import DatePicker from '$lib/components/date-picker.svelte'
   import { getLinksState } from '$lib/links'
   import { _LINK_UPDATED_ } from '$lib/messages'
   import { BadRequestError, UnexpectedError } from '$lib/pocketbase'
   import { linkUpdate } from '$lib/schemas'
-  import * as Form from '$lib/shadcn/ui/form'
-  import { Input } from '$lib/shadcn/ui/input'
+  import Form from './form.svelte'
   import type { Link } from '$lib/types'
-  import LoaderCircle from '@lucide/svelte/icons/loader-circle'
   import { toast } from 'svelte-sonner'
   import { zod4Client } from 'sveltekit-superforms/adapters'
   import { defaults, setError, superForm } from 'sveltekit-superforms/client'
@@ -48,51 +45,7 @@
     },
   })
 
-  const { form: formData, enhance, validateForm, tainted, submitting } = form
-
-  const isTainted = $derived($tainted?.slug || $tainted?.url || $tainted?.expiresAt)
-
-  function formatSlug() {
-    $formData.slug = $formData.slug?.replaceAll(' ', '_').toLowerCase()
-  }
+  const { validateForm } = form
 </script>
 
-<form method="POST" use:enhance class="flex flex-col gap-6">
-  <Form.Field {form} name="slug">
-    <Form.Control>
-      {#snippet children({ props })}
-        <Form.Label>Enlace Acortado</Form.Label>
-        <Input {...props} bind:value={$formData.slug} oninput={formatSlug} />
-      {/snippet}
-    </Form.Control>
-    <Form.FieldErrors />
-  </Form.Field>
-
-  <Form.Field {form} name="url">
-    <Form.Control>
-      {#snippet children({ props })}
-        <Form.Label>Enlace de Destino</Form.Label>
-        <Input {...props} bind:value={$formData.url} />
-      {/snippet}
-    </Form.Control>
-    <Form.FieldErrors />
-  </Form.Field>
-
-  <Form.Field {form} name="expiresAt">
-    <Form.Control>
-      {#snippet children({ props })}
-        <Form.Label>Fecha de Expiración</Form.Label>
-        <DatePicker id={props.id} bind:value={$formData.expiresAt} class="w-full" />
-      {/snippet}
-    </Form.Control>
-    <Form.FieldErrors />
-  </Form.Field>
-
-  <Form.Button disabled={!isTainted || $submitting}>
-    {#if $submitting}
-      <LoaderCircle class="animate-spin" /> Guardando...
-    {:else}
-      Guardar
-    {/if}
-  </Form.Button>
-</form>
+<Form {form} />
