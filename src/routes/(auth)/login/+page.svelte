@@ -5,6 +5,7 @@
   import * as Form from '$lib/shadcn/ui/form'
   import { Input } from '$lib/shadcn/ui/input'
   import { EyeIcon, EyeOffIcon } from '@lucide/svelte'
+  import LoaderCircleIcon from '@lucide/svelte/icons/loader-circle'
   import { toast } from 'svelte-sonner'
   import { superForm } from 'sveltekit-superforms'
   import { zod4Client } from 'sveltekit-superforms/adapters'
@@ -21,7 +22,7 @@
     },
   })
 
-  const { form: formData, enhance } = form
+  const { form: formData, enhance, submitting } = form
 
   let showPassword = $state(false)
 </script>
@@ -73,7 +74,13 @@
     <Form.FieldErrors />
   </Form.Field>
 
-  <Form.Button>Iniciar sesión</Form.Button>
+  <Form.Button disabled={$submitting}>
+    {#if $submitting}
+      <LoaderCircleIcon class="animate-spin" /> Iniciando sesión...
+    {:else}
+      Iniciar sesión
+    {/if}
+  </Form.Button>
 
   <div class="grid gap-6">
     <div
