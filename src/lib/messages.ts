@@ -9,6 +9,7 @@ export const _INVALID_PASSWORD_ = 'Debe tener al menos {{count}} caracteres'
 export const _INVALID_DATE_ = 'Debe ser una fecha futura'
 export const _INVALID_SLUG_REGEX_ =
   'Debe comenzar y terminar con una letra o número y solo puede contener guiones o guiones bajos'
+export const _INVALID_AUTH_CREDENTIALS_ = 'Correo o contraseña incorrectos'
 
 export const _LINK_NOT_FOUND_ = 'No se encontró el enlace'
 export const _LINK_NOT_UNIQUE_ = 'Este enlace ya existe'
@@ -19,4 +20,9 @@ export const _LINK_CREATED_ = 'Enlace creado con éxito'
 export const _LINK_UPDATED_ = 'Enlace actualizado con éxito'
 export const _LINK_DELETED_ = 'Enlace eliminado permanentemente'
 
+export const _EMAIL_NOT_UNIQUE_ = 'Este correo ya está registrado'
+
+export const _LOGIN_ERROR_ = 'Ocurrió un error al iniciar sesión'
 export const _LOGOUT_ERROR_ = 'Ocurrió un error al cerrar sesión'
+export const _REGISTER_ERROR_ = 'Ocurrió un error al registrarse'
+
