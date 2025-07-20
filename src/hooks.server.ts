@@ -33,14 +33,14 @@ export const authtorization: Handle = async ({ event, resolve }) => {
   const { pathname } = event.url
   const { slug } = event.params
 
-  const requiredAuth =
+  const authRequired =
     slug === undefined &&
     pathname !== Routes.Home &&
     !UNPROTECTED_ROUTES.some((path) => pathname.startsWith(path))
 
   const isAuthenticated = event.locals.pb.authStore.isValid
 
-  if (requiredAuth && !isAuthenticated) {
+  if (authRequired && !isAuthenticated) {
     redirect(302, Routes.Login)
   }
 
