@@ -1,10 +1,10 @@
 <script lang="ts">
+  import InputPassword from '$lib/components/input-password.svelte'
   import { Routes } from '$lib/consts'
   import { register } from '$lib/schemas'
   import { Button } from '$lib/shadcn/ui/button'
   import * as Form from '$lib/shadcn/ui/form'
   import { Input } from '$lib/shadcn/ui/input'
-  import { EyeIcon, EyeOffIcon } from '@lucide/svelte'
   import LoaderCircleIcon from '@lucide/svelte/icons/loader-circle'
   import { toast } from 'svelte-sonner'
   import { superForm } from 'sveltekit-superforms'
@@ -23,8 +23,6 @@
   })
 
   const { form: formData, enhance, submitting } = form
-
-  let showPassword = $state(false)
 </script>
 
 <form method="POST" use:enhance class="flex flex-col gap-6">
@@ -59,26 +57,7 @@
     <Form.Control>
       {#snippet children({ props })}
         <Form.Label>Contraseña</Form.Label>
-        <div class="relative">
-          <Input
-            {...props}
-            type={showPassword ? 'text' : 'password'}
-            bind:value={$formData.password}
-          />
-
-          <Button
-            variant="ghost"
-            size="icon"
-            class="absolute top-1/2 right-0 -translate-y-1/2"
-            onclick={() => (showPassword = !showPassword)}
-          >
-            {#if showPassword}
-              <EyeIcon />
-            {:else}
-              <EyeOffIcon />
-            {/if}
-          </Button>
-        </div>
+        <InputPassword {...props} bind:value={$formData.password} />
       {/snippet}
     </Form.Control>
     <Form.FieldErrors />
