@@ -16,7 +16,7 @@
   description="Completa los campos para crear un enlace"
   bind:open={createLink}
 >
-  <FormCreate onSuccess={() => (createLink = true)} />
+  <FormCreate onSuccess={() => (createLink = false)} />
 </Modal>
 
 <Modal
@@ -26,7 +26,7 @@
   onClose={() => (updateLink = undefined)}
 >
   {#if updateLink}
-    <FormUpdate data={updateLink} onSuccess={() => (createLink = true)} />
+    <FormUpdate data={updateLink} onSuccess={() => (updateLink = undefined)} />
   {/if}
 </Modal>
 
